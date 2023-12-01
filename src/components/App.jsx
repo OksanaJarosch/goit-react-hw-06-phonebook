@@ -33,33 +33,15 @@ export const App = () => {
   }, [contacts]);
 
 
-  // const addContact = values => {
-  //   const inputId = nanoid();
-
-  //   const checkContact = contacts.some(contact => contact.name.toLowerCase() === values.name.toLowerCase());
-
-  //   if (checkContact) {
-  //     Report.warning(
-  //       'Contact has not been added.',
-  //       `${values.name} is already in contacts.`,
-  //       'Okay',
-  //     );
-  //   } else {
-  //     setContacts(prevContacts => {
-  //       return [...prevContacts, { ...values, id: inputId }]
-  //     })
-  //   }
-  // };
-
   const updateFilter = value => {
     setFilter(value);
   };
 
-  const handleDelete = contactId => {
-    const newContacts = contacts.filter(contact => contact.id !== contactId);
+  // const handleDelete = contactId => {
+  //   const newContacts = contacts.filter(contact => contact.id !== contactId);
         
-    setContacts(newContacts)
-  };
+  //   setContacts(newContacts)
+  // };
   
   const visibleContacts = () => {
     if (filter === "") {
@@ -79,7 +61,7 @@ export const App = () => {
       <Title>Contacts</Title>
       {contacts.length > 0 ? <Filter onFilter={updateFilter}></Filter>
         : <p>You don't have any contacts</p>}
-      <Contacts myContacts={visibleContacts()} onDelete={handleDelete}></Contacts> 
+      <Contacts myContacts={visibleContacts()}></Contacts> 
       <GlobalStyle />
     </Container>
   )
