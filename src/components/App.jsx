@@ -4,7 +4,6 @@ import { Phonebook } from "./Phonebook/Phonebook";
 import { Contacts } from "./Contacts/Contacts";
 import { Container, Title } from "./App.styled";
 import { Filter } from "./Filter/Filter"
-// import { Report } from 'notiflix/build/notiflix-report-aio';
 
 const LS_KEY = "contacts";
 
@@ -16,7 +15,6 @@ export const App = () => {
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ];
   const [contacts, setContacts] = useState(users);
-  const [filter, setFilter] = useState("");
 
   useEffect(() => {
     const savedContacts = window.localStorage.getItem(LS_KEY);
@@ -33,35 +31,15 @@ export const App = () => {
   }, [contacts]);
 
 
-  const updateFilter = value => {
-    setFilter(value);
-  };
-
-  // const handleDelete = contactId => {
-  //   const newContacts = contacts.filter(contact => contact.id !== contactId);
-        
-  //   setContacts(newContacts)
-  // };
-  
-  const visibleContacts = () => {
-    if (filter === "") {
-      return contacts;
-    }
-
-    return contacts.filter(
-      contact => contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
-    );
-  };
-
   return (
     <Container>
       <Title>Phonebook</Title>
       <Phonebook></Phonebook>
 
       <Title>Contacts</Title>
-      {contacts.length > 0 ? <Filter onFilter={updateFilter}></Filter>
+      {contacts.length > 0 ? <Filter></Filter>
         : <p>You don't have any contacts</p>}
-      <Contacts myContacts={visibleContacts()}></Contacts> 
+      <Contacts></Contacts> 
       <GlobalStyle />
     </Container>
   )

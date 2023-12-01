@@ -3,14 +3,28 @@ import { Contact, Span, Btn } from "./Contacts.styled";
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import { deleteContact } from "redux/contactsSlice";
 
-export const Contacts = ({ myContacts }) => {
+export const Contacts = () => {
     
     const dispatch = useDispatch();
     const contacts = useSelector(state => state.contacts);
+    const filter = useSelector(state => state.filter);
+
+    const getVisibleContacts = () => {
+
+    if (filter === "") {
+        return contacts;
+    }
+        
+    return contacts.filter(
+    contact => contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+    };
+
+    const visibleContacts = getVisibleContacts();
 
     return (
             <ul>
-            {contacts.map(contact => {
+            {visibleContacts.map(contact => {
                 const { id, name, number } = contact;
 
                     return (
