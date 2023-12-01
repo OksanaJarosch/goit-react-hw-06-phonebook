@@ -1,11 +1,10 @@
 import {useEffect, useState} from "react";
 import { GlobalStyle } from "GlobalStyle";
-import { nanoid } from 'nanoid';
 import { Phonebook } from "./Phonebook/Phonebook";
 import { Contacts } from "./Contacts/Contacts";
 import { Container, Title } from "./App.styled";
 import { Filter } from "./Filter/Filter"
-import { Report } from 'notiflix/build/notiflix-report-aio';
+// import { Report } from 'notiflix/build/notiflix-report-aio';
 
 const LS_KEY = "contacts";
 
@@ -34,23 +33,23 @@ export const App = () => {
   }, [contacts]);
 
 
-  const addContact = values => {
-    const inputId = nanoid();
+  // const addContact = values => {
+  //   const inputId = nanoid();
 
-    const checkContact = contacts.some(contact => contact.name.toLowerCase() === values.name.toLowerCase());
+  //   const checkContact = contacts.some(contact => contact.name.toLowerCase() === values.name.toLowerCase());
 
-    if (checkContact) {
-      Report.warning(
-        'Contact has not been added.',
-        `${values.name} is already in contacts.`,
-        'Okay',
-      );
-    } else {
-      setContacts(prevContacts => {
-        return [...prevContacts, { ...values, id: inputId }]
-      })
-    }
-  };
+  //   if (checkContact) {
+  //     Report.warning(
+  //       'Contact has not been added.',
+  //       `${values.name} is already in contacts.`,
+  //       'Okay',
+  //     );
+  //   } else {
+  //     setContacts(prevContacts => {
+  //       return [...prevContacts, { ...values, id: inputId }]
+  //     })
+  //   }
+  // };
 
   const updateFilter = value => {
     setFilter(value);
@@ -75,7 +74,7 @@ export const App = () => {
   return (
     <Container>
       <Title>Phonebook</Title>
-      <Phonebook onAddContact={addContact}></Phonebook>
+      <Phonebook></Phonebook>
 
       <Title>Contacts</Title>
       {contacts.length > 0 ? <Filter onFilter={updateFilter}></Filter>

@@ -1,6 +1,9 @@
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { StyledForm, StyledInput, StyledLabel, StyledButton, Error } from './Phonebook.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
+import { Report } from 'notiflix/build/notiflix-report-aio';
 
 
 const schema = Yup.object().shape({
@@ -9,7 +12,25 @@ const schema = Yup.object().shape({
 });
 
 
-export const Phonebook = ({onAddContact}) => { 
+    
+export const Phonebook = () => { 
+
+    const dispatch = useDispatch();
+    const contacts = useSelector(state => state.contacts);
+
+
+    const handlecCheckContact = values => {
+    
+    const checkContact = contacts.some(contact => contact.name.toLowerCase() === values.name.toLowerCase());
+
+    if (checkContact) {
+        Report.warning(
+        'Contact has not been added.',
+        `${values.name} is already in contacts.`,
+        'Okay',
+        );
+    } 
+    }
 
         return (
                 <Formik
@@ -18,8 +39,11 @@ export const Phonebook = ({onAddContact}) => {
                         number: '',
                     }}
                     validationSchema={schema}
-                    onSubmit={(values, actions) => {
-                        onAddContact(values);
+                onSubmit={(values, actions) => {
+                    
+                        // onAddContact(values);
+                    dispatch(addContact(values));
+                    // handlecCheckContact(values);
                         actions.resetForm();
                     }}
                 >
