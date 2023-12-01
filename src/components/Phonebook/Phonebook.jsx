@@ -17,9 +17,11 @@ export const Phonebook = () => {
 
     const dispatch = useDispatch();
     const contacts = useSelector(state => state.contacts);
+    console.log(contacts);
 
 
-    const handlecCheckContact = values => {
+    const handleAddContact = values => {
+        console.log(values);
     
     const checkContact = contacts.some(contact => contact.name.toLowerCase() === values.name.toLowerCase());
 
@@ -29,7 +31,9 @@ export const Phonebook = () => {
         `${values.name} is already in contacts.`,
         'Okay',
         );
-    } 
+        return
+        } 
+        dispatch(addContact(values));
     }
 
         return (
@@ -39,11 +43,8 @@ export const Phonebook = () => {
                         number: '',
                     }}
                     validationSchema={schema}
-                onSubmit={(values, actions) => {
-                    
-                        // onAddContact(values);
-                    dispatch(addContact(values));
-                    // handlecCheckContact(values);
+                onSubmit={(values, actions) => {              
+                    handleAddContact(values);
                         actions.resetForm();
                     }}
                 >
