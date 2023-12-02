@@ -17,11 +17,9 @@ export const Phonebook = () => {
 
     const dispatch = useDispatch();
     const contacts = useSelector(state => state.contacts);
-    console.log(contacts);
 
 
     const handleAddContact = values => {
-        console.log(values);
     
     const checkContact = contacts.some(contact => contact.name.toLowerCase() === values.name.toLowerCase());
 
@@ -36,6 +34,7 @@ export const Phonebook = () => {
         dispatch(addContact(values));
     }
 
+    
         return (
                 <Formik
                     initialValues={{
